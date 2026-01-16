@@ -1,0 +1,29 @@
+{
+    "type": "client",
+    "name": "PeazyScreen",
+    "description": "Analyze the user's current screen image. Provide guidance in 'instructions' param about what to focus on.",
+    "response_timeout_secs": 12,
+    "disable_interruptions": false,
+    "force_pre_tool_speech": false,
+    "assignments": [],
+    "tool_call_sound_behavior": "auto",
+    "parameters": {
+        "type": "object",
+        "required": [],
+        "description": "",
+        "properties": {
+            "instructions": {
+                "type": "string",
+                "description": "Short prompt describing what to look for on screen",
+                "is_system_provided": false,
+                "dynamic_variable": "",
+                "constant_value": ""
+            }
+        }
+    },
+    "expects_response": true,
+    "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+    },
+    "execution_mode": "immediate"
+}

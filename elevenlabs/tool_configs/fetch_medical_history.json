@@ -1,0 +1,41 @@
+{
+    "type": "webhook",
+    "name": "fetch_medical_history",
+    "description": "Scrapes patient medication history from the RenewRx portal using TinyFish Mino.",
+    "response_timeout_secs": 60,
+    "disable_interruptions": false,
+    "force_pre_tool_speech": false,
+    "assignments": [],
+    "tool_call_sound_behavior": "auto",
+    "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+    },
+    "execution_mode": "immediate",
+    "api_schema": {
+        "request_headers": {
+            "X-API-Key": "sk-mino-sEaZDbyVN5_yEYUJq8mbYLrWJeifJLRU"
+        },
+        "url": "https://mino.ai/v1/automation/run",
+        "method": "POST",
+        "path_params_schema": {},
+        "request_body_schema": {
+            "type": "object",
+            "required": [
+                "url",
+                "goal"
+            ],
+            "description": "TinyFish Mino automation request",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "constant_value": "https://renewrx-mocks-demo-2026.netlify.app/portal/dashboard.html"
+                },
+                "goal": {
+                    "type": "string",
+                    "constant_value": "Find \"Latanoprost\" and return its \"last_filled\" date. Also list all \"allergies\". Return as JSON."
+                }
+            }
+        },
+        "content_type": "application/json"
+    }
+}

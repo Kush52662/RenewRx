@@ -1,0 +1,67 @@
+{
+    "type": "webhook",
+    "name": "place_pharmacy_order",
+    "description": "Places a prescription order on the pharmacy website using Yutori automation after clinician approval.",
+    "response_timeout_secs": 20,
+    "disable_interruptions": false,
+    "force_pre_tool_speech": false,
+    "assignments": [],
+    "tool_call_sound_behavior": "auto",
+    "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+    },
+    "execution_mode": "immediate",
+    "api_schema": {
+        "request_headers": {},
+        "url": "https://renewrx-mocks-demo-2026.netlify.app/api/place-order",
+        "method": "POST",
+        "path_params_schema": {},
+        "request_body_schema": {
+            "type": "object",
+            "required": [
+                "medicationName",
+                "patientName",
+                "quantity"
+            ],
+            "description": "",
+            "properties": {
+                "medication_name": {
+                    "type": "string",
+                    "description": "The name of the medication to order (e.g., 'Latanoprost', 'Timolol')",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
+                    "constant_value": ""
+                },
+                "patient_name": {
+                    "type": "string",
+                    "description": "Full name of the patient for shipping",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
+                    "constant_value": ""
+                },
+                "dosage": {
+                    "type": "string",
+                    "description": "Dosage information (e.g., '0.005%', '10mg')",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
+                    "constant_value": ""
+                },
+                "quantity": {
+                    "type": "number",
+                    "description": "Number of units to order",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
+                    "constant_value": ""
+                },
+                "shipping_address": {
+                    "type": "string",
+                    "description": "Full shipping address as a single string",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
+                    "constant_value": ""
+                }
+            }
+        },
+        "content_type": "application/json"
+    }
+}

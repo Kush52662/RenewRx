@@ -1,0 +1,41 @@
+{
+    "type": "webhook",
+    "name": "ScreenDescribeServer",
+    "description": "Server-side screen description via Cloud Run",
+    "response_timeout_secs": 20,
+    "disable_interruptions": false,
+    "force_pre_tool_speech": false,
+    "assignments": [],
+    "tool_call_sound_behavior": "auto",
+    "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+    },
+    "execution_mode": "immediate",
+    "api_schema": {
+        "request_headers": {
+            "x-elevenlabs-conversation-id": {
+                "variable_name": "system__conversation_id"
+            }
+        },
+        "url": "https://peazy-trainer-api-720959878202.us-central1.run.app/tools/screen_describe",
+        "method": "POST",
+        "path_params_schema": {},
+        "request_body_schema": {
+            "type": "object",
+            "required": [
+                "instructions"
+            ],
+            "description": "Server-side screen description via Cloud Run",
+            "properties": {
+                "instructions": {
+                    "type": "string",
+                    "description": "Short, specific instruction for what to look for in the shared screen (e.g., “Identify the primary CTA”, \"summarise the whole screen content\")",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
+                    "constant_value": ""
+                }
+            }
+        },
+        "content_type": "application/json"
+    }
+}

@@ -1,0 +1,149 @@
+{
+  "name": "renewrx_intake_specialist",
+  "conversation_config": {
+    "asr": {
+      "quality": "high",
+      "provider": "elevenlabs",
+      "user_input_audio_format": "pcm_16000",
+      "keywords": []
+    },
+    "turn": {
+      "turn_timeout": 7.0,
+      "silence_end_call_timeout": -1.0,
+      "mode": "turn"
+    },
+    "tts": {
+      "model_id": "eleven_turbo_v2",
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "supported_voices": [],
+      "agent_output_audio_format": "pcm_16000",
+      "optimize_streaming_latency": 3,
+      "stability": 0.5,
+      "speed": 1.0,
+      "similarity_boost": 0.8,
+      "pronunciation_dictionary_locators": []
+    },
+    "conversation": {
+      "text_only": false,
+      "max_duration_seconds": 600,
+      "client_events": [
+        "audio",
+        "interruption"
+      ]
+    },
+    "language_presets": {},
+    "agent": {
+      "first_message": "Hello, thank you for calling RenewRx. I'm Sarah, your intake specialist. How can I help you with your prescription today?",
+      "language": "en",
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+      },
+      "prompt": {
+        "prompt": "You are Sarah, a highly disciplined Eyecare Intake Specialist at RenewRx. You MUST follow this EXACT sequence without skipping any steps or asking extra questions.\n\n### CRITICAL RULES:\n1. ONLY ask the 3 questions listed in step 3. \n2. DO NOT ask about other meds, eye exams, flashes, or floaters.\n3. YOU MUST CALL THE TOOLS in step 5 as soon as the questions are answered.\n\n### PROCESS:\n1. **Greeting**: Warmly greet the patient.\n2. **Verification**: Ask for First Name and Last 4 of SSN. Wait for both.\n3. **Intake (ONLY THESE 3)**:\n   * Q1: Have you noticed any changes in your vision since your last refill?\n   * Q2: Are you experiencing any pain, redness, or discomfort in your eyes?\n   * Q3: Do you have any new allergies we should be aware of?\n4. **Transition**: Say: 'Thank you. Please hold for just a moment while I process your request and check with our clinician.'\n5. **Tool Sequence (CRITICAL)**: \n   - Call `fetch_medical_history` (send patient name/SSN if needed).\n   - Call `check_risk_factors`.\n   - Call `submit_case_to_clinician`.\n6. **Check Approval**: Look at the response from `submit_case_to_clinician`. If it says `status: approved`, proceed immediately to step 7. \n7. **Ordering**: Call `place_pharmacy_order` to confirm the refill. \n8. **Confirmation**: Tell the patient: 'Good news! The clinician has approved your refill. Your order for [medication] has been placed and will arrive within [ETA].'\n9. **Closing**: Wish them a great day.",
+        "llm": "gemini-2.0-flash",
+        "temperature": 0.0,
+        "max_tokens": -1,
+        "tool_ids": [
+          "tool_2501kf47sq2rfz7t32ey6658z1qq",
+          "tool_6601kf47sq68fp8tprm45j9p2gn5",
+          "tool_6601kf47sq9hed1ve5k5wjmhvj6g",
+          "tool_8601kf49djxnfxmbez6m0fhz9yzw"
+        ],
+        "mcp_server_ids": [],
+        "native_mcp_server_ids": [],
+        "knowledge_base": [],
+        "ignore_default_personality": true,
+        "rag": {
+          "enabled": false,
+          "embedding_model": "e5_mistral_7b_instruct",
+          "max_vector_distance": 0.6,
+          "max_documents_length": 50000,
+          "max_retrieved_rag_chunks_count": 20
+        },
+        "custom_llm": null
+      }
+    }
+  },
+  "platform_settings": {
+    "auth": {
+      "enable_auth": false,
+      "allowlist": [],
+      "shareable_token": null
+    },
+    "evaluation": {
+      "criteria": []
+    },
+    "widget": {
+      "variant": "full",
+      "placement": "bottom-right",
+      "expandable": "never",
+      "avatar": {
+        "type": "orb",
+        "color_1": "#059669",
+        "color_2": "#34d399"
+      },
+      "feedback_mode": "none",
+      "bg_color": "#ffffff",
+      "text_color": "#0f172a",
+      "btn_color": "#059669",
+      "btn_text_color": "#ffffff",
+      "border_color": "#e2e8f0",
+      "focus_color": "#059669",
+      "shareable_page_show_terms": true,
+      "show_avatar_when_collapsed": false,
+      "disable_banner": false,
+      "mic_muting_enabled": false,
+      "transcript_enabled": false,
+      "text_input_enabled": true
+    },
+    "data_collection": {},
+    "overrides": {
+      "conversation_config_override": {
+        "tts": {
+          "voice_id": false
+        },
+        "conversation": {
+          "text_only": true
+        },
+        "agent": {
+          "first_message": false,
+          "language": false,
+          "prompt": {
+            "prompt": false
+          }
+        }
+      },
+      "custom_llm_extra_body": false,
+      "enable_conversation_initiation_client_data_from_webhook": false
+    },
+    "call_limits": {
+      "agent_concurrency_limit": -1,
+      "daily_limit": 100000,
+      "bursting_enabled": true
+    },
+    "privacy": {
+      "record_voice": true,
+      "retention_days": -1,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false,
+      "apply_to_existing_conversations": false,
+      "zero_retention_mode": false
+    },
+    "workspace_overrides": {
+      "webhooks": {
+        "post_call_webhook_id": null
+      },
+      "conversation_initiation_client_data_webhook": null
+    },
+    "safety": {
+      "is_blocked_ivc": false,
+      "is_blocked_non_ivc": false,
+      "ignore_safety_evaluation": false
+    },
+    "testing": {
+      "attached_tests": []
+    },
+    "ban": null
+  },
+  "tags": []
+}

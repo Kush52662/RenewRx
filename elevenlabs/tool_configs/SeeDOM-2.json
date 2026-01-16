@@ -1,0 +1,21 @@
+{
+    "type": "client",
+    "name": "SeeDOM",
+    "description": "Use to inspect the current DOM structure of the user's active tab.",
+    "response_timeout_secs": 10,
+    "disable_interruptions": false,
+    "force_pre_tool_speech": false,
+    "assignments": [],
+    "tool_call_sound_behavior": "auto",
+    "parameters": {
+        "type": "object",
+        "required": [],
+        "description": "",
+        "properties": {}
+    },
+    "expects_response": true,
+    "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+    },
+    "execution_mode": "immediate"
+}

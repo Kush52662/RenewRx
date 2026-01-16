@@ -1,0 +1,42 @@
+{
+  "appType": "lightweight",
+  "name": "RenewRx Dashboard",
+  "data": {
+    "pages": [
+      {
+        "id": "main",
+        "data": {
+          "components": [
+            {
+              "id": "table1",
+              "type": "widget",
+              "pluginId": "table1",
+              "properties": {
+                "data": "{{ get_cases.data }}",
+                "columns": [
+                  { "id": "id", "name": "ID", "width": 50 },
+                  { "id": "patient_name", "name": "Patient", "width": 120 },
+                  { "id": "requested_medication", "name": "Requested Drug", "width": 180 },
+                  { "id": "risk_score", "name": "Risk", "width": 60 },
+                  { "id": "status", "name": "Status", "width": 90 },
+                  { "id": "created_at", "name": "Time", "width": 120 }
+                ]
+              }
+            }
+          ],
+          "queries": [
+            {
+              "id": "get_cases",
+              "type": "restapi",
+              "pluginId": "get_cases",
+              "properties": {
+                "url": "https://renewrx-mocks-demo-2026.netlify.app/api/renewrx",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

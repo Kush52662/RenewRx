@@ -1,0 +1,266 @@
+{
+    "name": "Presecription renewal",
+    "conversation_config": {
+        "asr": {
+            "quality": "high",
+            "provider": "elevenlabs",
+            "user_input_audio_format": "pcm_16000",
+            "keywords": []
+        },
+        "turn": {
+            "turn_timeout": 7,
+            "silence_end_call_timeout": -1,
+            "soft_timeout_config": {
+                "timeout_seconds": -1,
+                "message": "Hhmmmm...yeah give me a second...",
+                "use_llm_generated_message": false
+            },
+            "mode": "turn",
+            "turn_eagerness": "normal",
+            "spelling_patience": "auto"
+        },
+        "tts": {
+            "model_id": "eleven_turbo_v2",
+            "voice_id": "cjVigY5qzO86Huf0OWal",
+            "supported_voices": [],
+            "suggested_audio_tags": [],
+            "agent_output_audio_format": "pcm_16000",
+            "optimize_streaming_latency": 3,
+            "stability": 0.5,
+            "speed": 1,
+            "similarity_boost": 0.8,
+            "text_normalisation_type": "system_prompt",
+            "pronunciation_dictionary_locators": []
+        },
+        "conversation": {
+            "text_only": false,
+            "max_duration_seconds": 600,
+            "client_events": [
+                "audio",
+                "interruption",
+                "agent_response",
+                "user_transcript",
+                "agent_response_correction",
+                "agent_tool_response"
+            ],
+            "monitoring_enabled": false,
+            "monitoring_events": [
+                "user_transcript",
+                "agent_response",
+                "agent_response_correction"
+            ]
+        },
+        "language_presets": {},
+        "vad": {
+            "background_voice_detection": false
+        },
+        "agent": {
+            "first_message": "Hi, I'm here to help you manage your prescriptions and refills.",
+            "language": "en",
+            "hinglish_mode": false,
+            "dynamic_variables": {
+                "dynamic_variable_placeholders": {}
+            },
+            "disable_first_message_interruptions": false,
+            "prompt": {
+                "prompt": "# Personality\n\nYou are a prescription refill agent designed for the healthcare industry.\nYou are efficient, accurate, and compliant with healthcare regulations.\nYou are responsible for autonomously retrieving patient history, routing risk assessments, requiring clinician approval when necessary, executing web ordering, and producing a full audit trace and printable summary.\n\n# Environment\n\nYou are operating within a healthcare provider's system, interacting with patients and internal systems.\nYou have access to patient medical records, prescription history, risk assessment tools, and web ordering interfaces.\nYou must adhere to strict data privacy and security protocols.\nThe interaction takes place over the phone.\n\n# Tone\n\nYour responses are clear, concise, and professional.\nYou use a reassuring and empathetic tone, especially when dealing with patients who may be anxious about their medications.\nYou avoid technical jargon and explain information in a way that is easy for patients to understand.\nYou are polite and respectful at all times.\n\n# Goal\n\nYour primary goal is to efficiently and accurately process prescription refill requests while ensuring patient safety and regulatory compliance.\n\n1.  **Patient Identification and Verification:**\n    *   Verify the patient's identity using information such as name, date of birth, and phone number.\n    *   Access the patient's medical record and prescription history.\n    *   {{system__caller_id}} can be used to verify patient identity.\n\n2.  **Prescription Retrieval and Review:**\n    *   Retrieve the patient's prescription history.\n    *   Identify the medication the patient is requesting to refill.\n    *   Confirm the dosage, frequency, and last fill date.\n\n3.  **Risk Assessment and Routing:**\n    *   Assess the risk associated with refilling the prescription based on factors such as:\n        *   Time since last fill\n        *   Changes in patient's medical condition\n        *   Potential drug interactions\n    *   Route high-risk cases to a clinician for approval.\n\n4.  **Clinician Approval (If Required):**\n    *   Contact the appropriate clinician to obtain approval for the refill.\n    *   Provide the clinician with all relevant information, including patient history, risk assessment, and prescription details.\n    *   Document the clinician's approval or denial.\n\n5.  **Web Ordering Execution:**\n    *   Access the web ordering interface.\n    *   Enter the prescription details, including medication name, dosage, quantity, and patient information.\n    *   Submit the order to the pharmacy.\n\n6.  **Audit Trace and Summary:**\n    *   Produce a full Macroscope audit trace documenting all steps taken during the refill process.\n    *   Generate a printable summary of the refill request, including:\n        *   Patient information\n        *   Prescription details\n        *   Risk assessment results\n        *   Clinician approval (if applicable)\n        *   Order confirmation number\n\n7.  **Patient Communication:**\n    *   Inform the patient of the status of their refill request.\n    *   Provide the patient with the pharmacy's contact information and estimated pickup time.\n    *   Answer any questions the patient may have.\n\n8.  **Repeatable Testing:**\n    *   Ensure the entire process is repeatable across synthetic Tonic scenarios for testing and validation.\n\n# Guardrails\n\nYou must comply with all relevant healthcare regulations, including HIPAA.\nYou must protect patient privacy and confidentiality at all times.\nYou must not provide medical advice or make any changes to a patient's prescription without clinician approval.\nIf you are unsure about any aspect of a refill request, you must consult with a clinician.\nYou must maintain a professional and respectful demeanor at all times.\nDo not ask for any Personally Identifiable Information (PII).\nDo not process requests for narcotics or schedule II drugs.\n\n# Tools\n\nYou have access to the following tools:\n*   Patient medical record system\n*   Prescription history database\n*   Risk assessment tool\n*   Web ordering interface\n*   Macroscope audit trail generator\n",
+                "llm": "gemini-2.5-flash",
+                "temperature": 0,
+                "max_tokens": -1,
+                "tool_ids": [],
+                "built_in_tools": {},
+                "mcp_server_ids": [],
+                "native_mcp_server_ids": [],
+                "knowledge_base": [],
+                "ignore_default_personality": false,
+                "rag": {
+                    "enabled": false,
+                    "embedding_model": "e5_mistral_7b_instruct",
+                    "max_vector_distance": 0.6,
+                    "max_documents_length": 50000,
+                    "max_retrieved_rag_chunks_count": 20,
+                    "query_rewrite_prompt_override": null
+                },
+                "backup_llm_config": {
+                    "preference": "default"
+                },
+                "cascade_timeout_seconds": 8,
+                "tools": []
+            }
+        }
+    },
+    "platform_settings": {
+        "evaluation": {
+            "criteria": []
+        },
+        "widget": {
+            "variant": "full",
+            "placement": "bottom-right",
+            "expandable": "never",
+            "avatar": {
+                "type": "orb",
+                "color1": "#2792dc",
+                "color2": "#9ce6e6"
+            },
+            "feedback_mode": "during",
+            "end_feedback": {
+                "type": "rating"
+            },
+            "bg_color": "#ffffff",
+            "text_color": "#000000",
+            "btn_color": "#000000",
+            "btn_text_color": "#ffffff",
+            "border_color": "#e1e1e1",
+            "focus_color": "#000000",
+            "shareable_page_show_terms": true,
+            "terms_text": "#### Terms and conditions\n\nBy clicking \"Agree,\" and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as described in the Privacy Policy.\nIf you do not wish to have your conversations recorded, please refrain from using this service.",
+            "show_avatar_when_collapsed": false,
+            "disable_banner": false,
+            "markdown_link_allowed_hosts": [],
+            "markdown_link_include_www": true,
+            "markdown_link_allow_http": true,
+            "mic_muting_enabled": false,
+            "transcript_enabled": false,
+            "text_input_enabled": true,
+            "conversation_mode_toggle_enabled": false,
+            "default_expanded": false,
+            "always_expanded": false,
+            "text_contents": {},
+            "styles": {},
+            "language_selector": false,
+            "supports_text_only": true,
+            "language_presets": {}
+        },
+        "data_collection": {},
+        "overrides": {
+            "conversation_config_override": {
+                "turn": {
+                    "soft_timeout_config": {
+                        "message": false
+                    }
+                },
+                "tts": {
+                    "voice_id": false,
+                    "stability": false,
+                    "speed": false,
+                    "similarity_boost": false
+                },
+                "conversation": {
+                    "text_only": true
+                },
+                "agent": {
+                    "first_message": false,
+                    "language": false,
+                    "prompt": {
+                        "prompt": false,
+                        "llm": false,
+                        "native_mcp_server_ids": false
+                    }
+                }
+            },
+            "custom_llm_extra_body": false,
+            "enable_conversation_initiation_client_data_from_webhook": false
+        },
+        "workspace_overrides": {
+            "webhooks": {
+                "events": [
+                    "transcript"
+                ]
+            }
+        },
+        "testing": {
+            "attached_tests": [],
+            "referenced_tests_ids": []
+        },
+        "archived": false,
+        "guardrails": {
+            "version": "1",
+            "moderation": {
+                "config": {
+                    "sexual": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "violence": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "violence_graphic": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "harassment": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "harassment_threatening": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "hate": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "hate_threatening": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "self_harm_instructions": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "self_harm": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "self_harm_intent": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    },
+                    "sexual_minors": {
+                        "is_enabled": false,
+                        "threshold": 0.3
+                    }
+                }
+            }
+        },
+        "auth": {
+            "enable_auth": false,
+            "allowlist": []
+        },
+        "call_limits": {
+            "agent_concurrency_limit": -1,
+            "daily_limit": 100000,
+            "bursting_enabled": true
+        },
+        "ban": null,
+        "privacy": {
+            "record_voice": true,
+            "retention_days": -1,
+            "delete_transcript_and_pii": false,
+            "delete_audio": false,
+            "apply_to_existing_conversations": false,
+            "zero_retention_mode": false
+        },
+        "safety": {
+            "is_blocked_ivc": false,
+            "is_blocked_non_ivc": false,
+            "ignore_safety_evaluation": false
+        }
+    },
+    "tags": [],
+    "workflow": {
+        "edges": {},
+        "nodes": {
+            "start_node": {
+                "type": "start",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "edge_order": []
+            }
+        },
+        "prevent_subagent_loops": false
+    }
+}

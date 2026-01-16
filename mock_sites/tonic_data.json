@@ -1,0 +1,111 @@
+{
+  "patient": {
+    "id": "PT-883920",
+    "name": "Eleanor Vance",
+    "dob": "1954-08-12",
+    "address": "42 Hill House Ln, Brookline, MA 02445",
+    "phone": "(617) 555-0199",
+    "email": "eleanor.v@example.com"
+  },
+  "allergies": [
+    {
+      "allergen": "Penicillin",
+      "reaction": "Hives",
+      "severity": "Moderate"
+    },
+    {
+      "allergen": "Sulfa Drugs",
+      "reaction": "Rash",
+      "severity": "Mild"
+    }
+  ],
+  "medications": [
+    {
+      "name": "Latanoprost",
+      "dosage": "0.005% Ophthalmic Solution",
+      "frequency": "1 drop in both eyes at bedtime",
+      "prescriber": "Dr. Sarah Smith (Ophthalmology)",
+      "last_filled": "2025-12-15",
+      "refills_remaining": 1,
+      "status": "Active"
+    },
+    {
+      "name": "Lisinopril",
+      "dosage": "10mg Tablet",
+      "frequency": "1 tablet daily",
+      "prescriber": "Dr. Michael Jones (Primary Care)",
+      "last_filled": "2025-12-01",
+      "refills_remaining": 3,
+      "status": "Active"
+    },
+    {
+      "name": "Atorvastatin",
+      "dosage": "20mg Tablet",
+      "frequency": "1 tablet at bedtime",
+      "prescriber": "Dr. Michael Jones (Primary Care)",
+      "last_filled": "2025-11-20",
+      "refills_remaining": 0,
+      "status": "Refill Needed"
+    },
+    {
+      "name": "Metformin",
+      "dosage": "500mg Tablet",
+      "frequency": "1 tablet twice daily with meals",
+      "prescriber": "Dr. Michael Jones (Primary Care)",
+      "last_filled": "2025-12-10",
+      "refills_remaining": 2,
+      "status": "Active"
+    }
+  ],
+  "appointments": [
+    {
+      "date": "2026-02-15",
+      "time": "10:00 AM",
+      "provider": "Dr. Sarah Smith",
+      "department": "Ophthalmology",
+      "type": "Follow-up"
+    }
+  ],
+  "pharmacy_products": [
+    {
+      "id": "RX-9921",
+      "name": "Latanoprost 0.005% Solution",
+      "description": "Generic for Xalatan \u2022 2.5mL Bottle",
+      "price": 15.0,
+      "in_stock": true,
+      "image_url": "https://img.freepik.com/free-photo/eye-drops-bottle-composition_23-2148914652.jpg"
+    },
+    {
+      "id": "RX-3321",
+      "name": "Timolol 0.5% Solution",
+      "description": "Generic for Timoptic \u2022 5mL Bottle",
+      "price": 12.5,
+      "in_stock": true,
+      "image_url": "https://img.freepik.com/free-photo/medical-eye-dropper-bottle_23-2148566373.jpg"
+    },
+    {
+      "id": "RX-5592",
+      "name": "Lisinopril 10mg",
+      "description": "ACE Inhibitor \u2022 30 Tablets",
+      "price": 8.0,
+      "in_stock": true,
+      "image_url": "https://img.freepik.com/free-photo/white-plastic-bottle-pills_23-2148214220.jpg"
+    },
+    {
+      "id": "RX-1102",
+      "name": "Artificial Tears",
+      "description": "Lubricating Eye Drops \u2022 15mL",
+      "price": 18.99,
+      "in_stock": true,
+      "image_url": "https://img.freepik.com/free-vector/medicine-concept-illustration_114360-3274.jpg"
+    },
+    {
+      "id": "RX-8823",
+      "name": "Atorvastatin 20mg",
+      "description": "Statin \u2022 30 Tablets",
+      "price": 11.25,
+      "in_stock": false,
+      "image_url": "https://img.freepik.com/free-photo/pill-bottle-spilling-pills-surface_1232-2639.jpg"
+    }
+  ]
+}

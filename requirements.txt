@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+requests
+agentql
+# yutori-python-sdk
+python-dotenv
+ngrok
+elevenlabs

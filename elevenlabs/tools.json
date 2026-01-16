@@ -1,0 +1,79 @@
+{
+    "tools": [
+        {
+            "name": "fetch_medical_history",
+            "config": "tool_configs/fetch_medical_history.json",
+            "id": "tool_2501kf47sq2rfz7t32ey6658z1qq"
+        },
+        {
+            "name": "check_risk_factors",
+            "config": "tool_configs/check_risk_factors.json",
+            "id": "tool_6601kf47sq68fp8tprm45j9p2gn5"
+        },
+        {
+            "name": "submit_case_to_clinician",
+            "config": "tool_configs/submit_case_to_clinician.json",
+            "id": "tool_6601kf47sq9hed1ve5k5wjmhvj6g"
+        },
+        {
+            "name": "place_pharmacy_order",
+            "config": "tool_configs/place_pharmacy_order.json",
+            "id": "tool_1768599103176"
+        },
+        {
+            "type": "client",
+            "config": "tool_configs/PeazyScreen-1.json",
+            "id": "tool_7601k467cmhvf849zh0k0nqce1my"
+        },
+        {
+            "type": "webhook",
+            "config": "tool_configs/ScreenDescribeServer-1.json",
+            "id": "tool_0701k4c3db11ft5vg2np3v3n29wx"
+        },
+        {
+            "type": "client",
+            "config": "tool_configs/SeeDOM-2.json",
+            "id": "tool_5601k0vnk72fezaryyw0as5anqqa"
+        },
+        {
+            "type": "client",
+            "config": "tool_configs/ScreenDescribe-1.json",
+            "id": "tool_0801k4bvbzc1fwhskvd9kvddn2zy"
+        },
+        {
+            "type": "client",
+            "config": "tool_configs/SeeDOM-3.json",
+            "id": "tool_4101k0vnsd16fn7b6yk2pr69ncpk"
+        },
+        {
+            "type": "client",
+            "config": "tool_configs/SeeImage-1.json",
+            "id": "tool_5701k44msjpeevbaqss8yvnzcjzn"
+        },
+        {
+            "type": "webhook",
+            "config": "tool_configs/fetch_medical_history-3.json",
+            "id": "tool_8701kf47tmmvf71apmwnhzvtbb7k"
+        },
+        {
+            "type": "webhook",
+            "config": "tool_configs/check_risk_factors-3.json",
+            "id": "tool_6701kf47tmqwfp9tsrgzwkw8f0fx"
+        },
+        {
+            "type": "webhook",
+            "config": "tool_configs/submit_case_to_clinician-3.json",
+            "id": "tool_6801kf47tmvfedwb092jqg6q0r2b"
+        },
+        {
+            "type": "webhook",
+            "config": "tool_configs/place_pharmacy_order-1.json",
+            "id": "tool_8601kf49djxnfxmbez6m0fhz9yzw"
+        },
+        {
+            "type": "webhook",
+            "config": "tool_configs/place_pharmacy_order-2.json",
+            "id": "tool_8001kf4bh9n7fvnsp2ta0ehgc5mj"
+        }
+    ]
+}

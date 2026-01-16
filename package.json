@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "retool-cli": "^1.0.29"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "place_pharmacy_order",
+  "description": "Places a prescription order on the pharmacy website using Yutori automation after clinician approval.",
+  "api_schema": {
+    "url": "https://renewrx-mocks-demo-2026.netlify.app/api/place-order",
+    "method": "POST",
+    "request_body_schema": {
+      "type": "object",
+      "properties": {
+        "medicationName": {
+          "type": "string",
+          "description": "The name of the medication to order (e.g., 'Latanoprost', 'Timolol')"
+        },
+        "patientName": {
+          "type": "string",
+          "description": "Full name of the patient for shipping"
+        },
+        "dosage": {
+          "type": "string",
+          "description": "Dosage information (e.g., '0.005%', '10mg')"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of units to order"
+        },
+        "shippingAddress": {
+          "type": "string",
+          "description": "Full shipping address as a single string"
+        }
+      },
+      "required": ["medicationName", "patientName", "quantity"]
+    }
+  },
+  "type": "webhook"
+}
