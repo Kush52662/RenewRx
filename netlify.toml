@@ -1,0 +1,18 @@
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  # Include data files in function bundles
+  included_files = ["mock_sites/tonic_data.json"]
+
+# Redirect /api/* to /.netlify/functions/*
+[[redirects]]
+  from = "/api/renewrx"
+  to = "/.netlify/functions/renewrx"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
