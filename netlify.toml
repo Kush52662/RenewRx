@@ -1,17 +1,17 @@
 [build]
-  functions = "netlify/functions"
+  publish = "public"
+  command = "echo 'Deploying public directory'"
 
-[functions]
-  node_bundler = "esbuild"
-  # Include data files in function bundles
-  included_files = ["mock_sites/tonic_data.json"]
+[dev]
+  framework = "#static"
+  publish = "public"
 
-# Redirect /api/* to /.netlify/functions/*
 [[redirects]]
-  from = "/api/renewrx"
-  to = "/.netlify/functions/renewrx"
+  from = "/*"
+  to = "/mock_sites/portal.html"
   status = 200
 
+# Proxy rule to allow CORS-free API calls if we add backend functions later
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

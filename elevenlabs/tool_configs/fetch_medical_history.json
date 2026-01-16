@@ -28,10 +28,16 @@
             "properties": {
                 "url": {
                     "type": "string",
+                    "description": "",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
                     "constant_value": "https://renewrx-mocks-demo-2026.netlify.app/portal/dashboard.html"
                 },
                 "goal": {
                     "type": "string",
+                    "description": "",
+                    "is_system_provided": false,
+                    "dynamic_variable": "",
                     "constant_value": "Find \"Latanoprost\" and return its \"last_filled\" date. Also list all \"allergies\". Return as JSON."
                 }
             }

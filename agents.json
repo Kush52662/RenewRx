@@ -1,8 +1,0 @@
-{
-  "agents": [
-    {
-      "config": "agent_configs/renewrx_intake_specialist.json",
-      "id": "agent_1801kf47czjyej1txfkemcs6ke39"
-    }
-  ]
-}

@@ -176,53 +176,29 @@
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                    <input type="text" id="username" name="username" placeholder="Enter your username" value="eleanor.v">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" value="password123">
                 </div>
                 <button type="submit" id="login-btn">Sign In</button>
             </form>
         </section>
 
-        <section id="history-section">
-            <h2>Prescription History</h2>
-            <div style="overflow-x: auto;">
-                <table id="history-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Medication</th>
-                            <th>Dosage</th>
-                            <th>Prescriber</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2025-01-15</td>
-                            <td><strong>Latanoprost</strong></td>
-                            <td>0.005% Solution</td>
-                            <td>Dr. Sarah Smith</td>
-                        </tr>
-                        <tr>
-                            <td>2024-12-10</td>
-                            <td><strong>Timolol</strong></td>
-                            <td>0.5% Solution</td>
-                            <td>Dr. Michael Jones</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="allergies-section">
-            <h2>Allergies & Alerts</h2>
-            <ul id="allergies-list">
-                <li>Penicillin</li>
-                <li>Sulfa Drugs</li>
-            </ul>
-        </section>
+        <!-- History and Allergies moved to Dashboard -->
+        
+        <script>
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulate login
+                const btn = document.getElementById('login-btn');
+                btn.textContent = "Authenticating...";
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+            });
+        </script>
     </div>
 </body>
 </html>

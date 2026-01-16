@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernPharmacy - Order Online</title>
+    <style>
+        :root {
+            --primary: #059669; /* Emerald green */
+            --primary-hover: #047857;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .hidden { display: none !important; }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Search Styles */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        button.search-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button.search-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-placeholder {
+            height: 150px;
+            background-color: #f1f5f9;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 2rem;
+        }
+
+        .product-info h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .product-info p {
+            margin: 0 0 1rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .price-tag {
+            color: var(--text-main);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .add-to-cart-btn {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-to-cart-btn:hover:not(:disabled) {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .add-to-cart-btn:disabled {
+            border-color: var(--border-color);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            background-color: #f1f5f9;
+        }
+
+        /* Cart Badge */
+        .cart-icon-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Cart Section Styles */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+            align-items: center;
+        }
+
+        /* Form Layout */
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Confirmation Styles */
+        #confirmation-section {
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .order-details {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .tonic-badge {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .checkout-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .checkout-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <h1>ModernPharmacy</h1>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <span class="tonic-badge">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    Inventory Secured by Tonic
+                </span>
+                
+                <div class="cart-icon-wrapper" id="header-cart-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span id="cart-count" class="cart-badge hidden">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Catalog Section -->
+        <section id="catalog-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>Shop Medication</h2>
+                <div class="search-box" style="margin-bottom: 0; min-width: 300px;">
+                    <input type="text" id="med-search" placeholder="Search medications...">
+                    <button class="search-btn" id="search-btn">Search</button>
+                </div>
+            </div>
+            
+            <div id="results-container" class="product-grid">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Cart Section (Hidden by default until checkout or click) -->
+        <section id="cart-section" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>Your Shopping Cart</h2>
+                <button id="continue-shopping-btn" style="background: none; border: none; color: var(--primary); cursor: pointer; text-decoration: underline;">Continue Shopping</button>
+            </div>
+            
+            <div id="cart-items">
+                <!-- Items go here -->
+                <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">Your cart is empty.</p>
+            </div>
+            
+            <div id="cart-total-section" class="hidden">
+                <div style="text-align: right; font-size: 1.25rem; font-weight: bold; margin: 1.5rem 0;">
+                    Total: <span id="cart-total">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </section>
+
+        <section id="checkout-form-section" class="hidden">
+            <h2>Secure Checkout</h2>
+            <form id="checkout-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Shipping Address</label>
+                        <input type="text" id="address" placeholder="123 Wellness Ave, Healthy City, HC 90210" required>
+                    </div>
+                    <div style="text-align: right; margin-top: 1rem;">
+                        <button type="submit" id="place-order-btn" class="checkout-btn">Place Order & Pay</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="confirmation-section" class="hidden">
+            <span class="success-icon">✓</span>
+            <h2>Order Confirmed!</h2>
+            <p style="color: var(--text-secondary);">Thank you for trusting ModernPharmacy with your health.</p>
+            
+            <div class="order-details">
+                <div class="detail-row">
+                    <span>Order ID</span>
+                    <span id="order-id" style="font-family: monospace; font-weight: bold;">ORD-99283</span>
+                </div>
+                <div class="detail-row">
+                    <span>Estimated Delivery</span>
+                    <span id="eta">2 Days</span>
+                </div>
+                <div class="detail-row">
+                    <span>Status</span>
+                    <span style="color: var(--primary); font-weight: 500;">Processing</span>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="location.reload()" class="add-to-cart-btn">Back to Store</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Tonic Synthetic Data: Pharmacy Inventory
+        // Loaded from JS for demo simplicity, but in prod this comes from tonic_data.json
+        const pharmacyInventory = [
+            {
+              "id": "RX-9921",
+              "name": "Latanoprost 0.005%",
+              "description": "Ophthalmic Solution • 2.5mL Bottle",
+              "price": 15.00,
+              "in_stock": true,
+              "image_url": "https://img.freepik.com/free-photo/eye-drops-bottle-composition_23-2148914652.jpg"
+            },
+            {
+              "id": "RX-3321",
+              "name": "Timolol 0.5%",
+              "description": "Ophthalmic Solution • 5mL Bottle",
+              "price": 12.50,
+              "in_stock": true,
+              "image_url": "https://img.freepik.com/free-photo/medical-eye-dropper-bottle_23-2148566373.jpg"
+            },
+            {
+              "id": "RX-5592",
+              "name": "Lisinopril 10mg",
+              "description": "ACE Inhibitor • 30 Tablets",
+              "price": 8.00,
+              "in_stock": true,
+              "image_url": "https://img.freepik.com/free-photo/white-plastic-bottle-pills_23-2148214220.jpg"
+            },
+            {
+              "id": "RX-1102",
+              "name": "Artificial Tears",
+              "description": "Lubricating Eye Drops • 15mL",
+              "price": 18.99,
+              "in_stock": true,
+              "image_url": "https://img.freepik.com/free-vector/medicine-concept-illustration_114360-3274.jpg"
+            },
+            {
+              "id": "RX-8823",
+              "name": "Atorvastatin 20mg",
+              "description": "Statin • 30 Tablets",
+              "price": 11.25,
+              "in_stock": false,
+              "image_url": "https://img.freepik.com/free-photo/pill-bottle-spilling-pills-surface_1232-2639.jpg"
+            },
+            {
+              "id": "RX-1103",
+              "name": "Metformin 500mg",
+              "description": "Extended Release • 60 Tablets",
+              "price": 4.50,
+              "in_stock": true,
+              "image_url": "https://img.freepik.com/free-photo/bottle-pills_23-2148197720.jpg"
+            }
+        ];
+
+        let cart = [];
+
+        // Elements
+        const searchInput = document.getElementById('med-search');
+        const searchBtn = document.getElementById('search-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const cartItemsDiv = document.getElementById('cart-items');
+        const cartCountBadge = document.getElementById('cart-count');
+        const cartTotalSection = document.getElementById('cart-total-section');
+        const cartTotalDisplay = document.getElementById('cart-total');
+
+        // Fuzzy Match Logic
+        function levenshtein(a, b) {
+            if (a.length === 0) return b.length;
+            if (b.length === 0) return a.length;
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) { matrix[i] = [i]; }
+            for (let j = 0; j <= a.length; j++) { matrix[0][j] = j; }
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) == a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1)
+                        );
+                    }
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
+        // Render Catalog Grid
+        function renderCatalog(items) {
+            if (items.length === 0) {
+                resultsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-secondary);">No products found matching your search.</div>';
+                return;
+            }
+
+            resultsContainer.innerHTML = items.map(item => `
+                <div class="product-card">
+                    <div class="product-image-placeholder" style="background-image: url('${item.image_url}'); background-size: cover; background-position: center;">
+                        ${!item.image_url ? (item.icon || '💊') : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        ${!item.in_stock ? '<span style="color: #ef4444; font-size: 0.8rem; font-weight: bold;">Out of Stock</span>' : ''}
+                    </div>
+                    <div class="product-footer">
+                        <div class="price-tag">$${item.price.toFixed(2)}</div>
+                        <button 
+                            class="add-to-cart-btn" 
+                            data-id="${item.id}"
+                            ${!item.in_stock ? 'disabled' : ''}>
+                            ${!item.in_stock ? 'Out of Stock' : 'Add to Cart'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Attach listeners
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', handleAddToCart);
+            });
+        }
+
+        // Filter Logic
+        function handleSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            
+            if (query === "") {
+                renderCatalog(pharmacyInventory);
+                return;
+            }
+
+            // Exact/Partial match
+            let matches = pharmacyInventory.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.description.toLowerCase().includes(query)
+            );
+
+            // Fuzzy fallback
+            if (matches.length === 0 && query.length > 2) {
+                matches = pharmacyInventory.filter(item => {
+                    const nameDist = levenshtein(query, item.name.toLowerCase());
+                    return nameDist <= 3; 
+                });
+            }
+
+            renderCatalog(matches);
+        }
+
+        searchBtn.addEventListener('click', handleSearch);
+        searchInput.addEventListener('input', handleSearch); // Live search
+
+        // Cart Logic
+        function handleAddToCart(e) {
+            const id = e.target.getAttribute('data-id');
+            const item = pharmacyInventory.find(p => p.id === id);
+            
+            if (item) {
+                cart.push(item);
+                updateCartUI();
+                
+                // Visual feedback on button
+                const originalText = e.target.textContent;
+                e.target.textContent = "Added!";
+                e.target.style.backgroundColor = "var(--primary)";
+                e.target.style.color = "white";
+                setTimeout(() => {
+                    e.target.textContent = originalText;
+                    e.target.style.backgroundColor = "";
+                    e.target.style.color = "";
+                }, 1000);
+            }
+        }
+
+        function updateCartUI() {
+            // Update Badge
+            cartCountBadge.textContent = cart.length;
+            if (cart.length > 0) cartCountBadge.classList.remove('hidden');
+            else cartCountBadge.classList.add('hidden');
+
+            // Update Cart Section
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">Your cart is empty.</p>';
+                cartTotalSection.classList.add('hidden');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotalDisplay.textContent = '$' + total.toFixed(2);
+            cartTotalSection.classList.remove('hidden');
+
+            cartItemsDiv.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <span style="font-size: 1.5rem;">${item.icon}</span>
+                        <div>
+                            <div style="font-weight:600;">${item.name}</div>
+                            <div style="font-size:0.9rem; color:var(--text-secondary);">${item.description}</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-weight:bold;">$${item.price.toFixed(2)}</div>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ef4444; font-size:0.8rem; cursor:pointer; text-decoration:underline; margin-top:0.25rem;">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // View Cart Toggle
+        document.getElementById('header-cart-btn').addEventListener('click', () => {
+            document.getElementById('catalog-section').classList.add('hidden');
+            document.getElementById('cart-section').classList.remove('hidden');
+            document.getElementById('checkout-form-section').classList.add('hidden');
+            document.getElementById('confirmation-section').classList.add('hidden');
+        });
+
+        document.getElementById('continue-shopping-btn').addEventListener('click', () => {
+            document.getElementById('cart-section').classList.add('hidden');
+            document.getElementById('catalog-section').classList.remove('hidden');
+        });
+
+        // Checkout Logic
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            document.getElementById('cart-section').classList.add('hidden');
+            document.getElementById('checkout-form-section').classList.remove('hidden');
+            document.getElementById('checkout-form-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('checkout-form-section').classList.add('hidden');
+            document.getElementById('confirmation-section').classList.remove('hidden');
+            
+            // Generate Order ID
+            const randomId = 'ORD-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('order-id').innerText = randomId;
+            
+            // Clear cart
+            cart = [];
+            updateCartUI();
+        });
+
+        // Initial Render
+        renderCatalog(pharmacyInventory);
+
+    </script>
+    <!-- ElevenLabs Conversational AI Widget -->
+    <elevenlabs-convai agent-id="agent_1801kf47czjyej1txfkemcs6ke39"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+</body>
+</html>
