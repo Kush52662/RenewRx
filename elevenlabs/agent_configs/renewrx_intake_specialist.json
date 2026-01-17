@@ -90,8 +90,8 @@
       "shareable_page_show_terms": true,
       "show_avatar_when_collapsed": false,
       "disable_banner": false,
-      "mic_muting_enabled": false,
-      "transcript_enabled": false,
+      "mic_muting_enabled": true,
+      "transcript_enabled": true,
       "text_input_enabled": true
     },
     "data_collection": {},

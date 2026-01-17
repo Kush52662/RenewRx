@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernPharmacy - Order Confirmed</title>
+    <style>
+        body { font-family: sans-serif; background: #f0fdf4; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 3rem; border-radius: 1rem; text-align: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); max-width: 400px; }
+        .icon { font-size: 4rem; color: #059669; display: block; margin-bottom: 1rem; }
+        .order-id { font-family: monospace; font-size: 1.5rem; background: #f1f5f9; padding: 0.5rem 1rem; border-radius: 0.5rem; display: inline-block; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span class="icon">✓</span>
+        <h1 style="color: #059669; margin: 0;">Order Confirmed!</h1>
+        <p>Thank you for your purchase.</p>
+        
+        <div class="order-id">ORD-<span id="id"></span></div>
+        <p style="color: #64748b;">Estimated Delivery: <strong>2 Days</strong></p>
+    </div>
+
+    <script>
+        // Generate a random order ID if one isn't passed (for demo reliability)
+        document.getElementById('id').innerText = Math.floor(10000 + Math.random() * 90000);
+    </script>
+</body>
+</html>

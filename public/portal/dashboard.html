@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RenewRx Patient Dashboard</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            color: var(--text-main);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Medications List */
+        .medication-item {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: box-shadow 0.2s;
+        }
+
+        .medication-item:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .med-info h3 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .med-detail {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin: 0.125rem 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-refill {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Patient Info Card */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            font-weight: 500;
+            color: var(--text-main);
+            text-align: right;
+        }
+
+        /* Allergies List */
+        .allergy-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fef2f2;
+            color: #991b1b;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            border: 1px solid #fee2e2;
+        }
+
+        .allergy-severity {
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+            opacity: 0.75;
+        }
+
+        /* Action Buttons */
+        .btn-refill {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .btn-refill:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .tonic-badge {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="6" fill="#2563EB"/>
+                    <path d="M12 7V17M7 12H17" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                RenewRx
+            </a>
+            <div class="user-profile">
+                <span class="tonic-badge">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    Data Secured by Tonic
+                </span>
+                <div style="text-align: right; line-height: 1.2;">
+                    <div style="font-weight: 600; font-size: 0.875rem;">Eleanor Vance</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary);">ID: PT-883920</div>
+                </div>
+                <div class="avatar">EV</div>
+                <a href="#" class="logout-btn">Sign Out</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard-grid">
+            <!-- Main Column -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Current Medications</h2>
+                        <span style="font-size: 0.875rem; color: var(--text-secondary);">Last updated: Jan 15, 2026</span>
+                    </div>
+                    <div id="medications-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Upcoming Appointments</h2>
+                    </div>
+                    <div id="appointments-list">
+                         <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Column -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Patient Details</h2>
+                    </div>
+                    <div id="patient-info">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Allergies & Alerts</h2>
+                    </div>
+                    <div id="allergies-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // "Pre-Baked" Synthetic Data from Tonic Fabricate
+        const patientData = {
+          "patient": {
+            "id": "PT-883920",
+            "name": "Eleanor Vance",
+            "dob": "1954-08-12",
+            "address": "42 Hill House Ln, Brookline, MA 02445",
+            "phone": "(617) 555-0199",
+            "email": "eleanor.v@example.com"
+          },
+          "allergies": [
+            {
+              "allergen": "Penicillin",
+              "reaction": "Hives",
+              "severity": "Moderate"
+            },
+            {
+              "allergen": "Sulfa Drugs",
+              "reaction": "Rash",
+              "severity": "Mild"
+            }
+          ],
+          "medications": [
+            {
+              "name": "Latanoprost",
+              "dosage": "0.005% Ophthalmic Solution",
+              "frequency": "1 drop in both eyes at bedtime",
+              "prescriber": "Dr. Sarah Smith (Ophthalmology)",
+              "last_filled": "2025-12-15",
+              "refills_remaining": 1,
+              "status": "Active"
+            },
+            {
+              "name": "Lisinopril",
+              "dosage": "10mg Tablet",
+              "frequency": "1 tablet daily",
+              "prescriber": "Dr. Michael Jones (Primary Care)",
+              "last_filled": "2025-12-01",
+              "refills_remaining": 3,
+              "status": "Active"
+            },
+            {
+              "name": "Atorvastatin",
+              "dosage": "20mg Tablet",
+              "frequency": "1 tablet at bedtime",
+              "prescriber": "Dr. Michael Jones (Primary Care)",
+              "last_filled": "2025-11-20",
+              "refills_remaining": 0,
+              "status": "Refill Needed"
+            },
+            {
+              "name": "Metformin",
+              "dosage": "500mg Tablet",
+              "frequency": "1 tablet twice daily with meals",
+              "prescriber": "Dr. Michael Jones (Primary Care)",
+              "last_filled": "2025-12-10",
+              "refills_remaining": 2,
+              "status": "Active"
+            }
+          ],
+          "appointments": [
+            {
+              "date": "2026-02-15",
+              "time": "10:00 AM",
+              "provider": "Dr. Sarah Smith",
+              "department": "Ophthalmology",
+              "type": "Follow-up"
+            }
+          ]
+        };
+
+        // Render Functions
+        function renderMedications() {
+            const container = document.getElementById('medications-list');
+            container.innerHTML = patientData.medications.map(med => `
+                <div class="medication-item">
+                    <div class="med-info">
+                        <h3>${med.name}</h3>
+                        <div class="med-detail">${med.dosage}</div>
+                        <div class="med-detail">Sig: ${med.frequency}</div>
+                        <div class="med-detail" style="margin-top: 0.5rem; font-style: italic;">Rx: ${med.prescriber}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="status-badge ${med.status === 'Active' ? 'status-active' : 'status-refill'}">
+                            ${med.status}
+                        </span>
+                        <div class="med-detail" style="margin-top: 0.5rem;">Refills: ${med.refills_remaining}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPatientInfo() {
+            const p = patientData.patient;
+            const container = document.getElementById('patient-info');
+            container.innerHTML = `
+                <div class="info-row"><span class="info-label">Full Name</span><span class="info-value">${p.name}</span></div>
+                <div class="info-row"><span class="info-label">DOB</span><span class="info-value">${p.dob}</span></div>
+                <div class="info-row"><span class="info-label">MRN</span><span class="info-value">${p.id}</span></div>
+                <div class="info-row"><span class="info-label">Phone</span><span class="info-value">${p.phone}</span></div>
+                <div class="info-row"><span class="info-label">Email</span><span class="info-value">${p.email}</span></div>
+                <div class="info-row" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                    <span class="info-label">Address</span>
+                    <span class="info-value" style="text-align: left;">${p.address}</span>
+                </div>
+            `;
+        }
+
+        function renderAllergies() {
+            const container = document.getElementById('allergies-list');
+            container.innerHTML = patientData.allergies.map(a => `
+                <span class="allergy-tag">
+                    ${a.allergen}
+                    <span class="allergy-severity">(${a.severity} - ${a.reaction})</span>
+                </span>
+            `).join('');
+        }
+
+        function renderAppointments() {
+            const container = document.getElementById('appointments-list');
+            container.innerHTML = patientData.appointments.map(apt => `
+                <div class="medication-item" style="margin-bottom: 0.5rem;">
+                    <div>
+                        <div style="font-weight: 600;">${apt.provider}</div>
+                        <div class="med-detail">${apt.department} • ${apt.type}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600; color: var(--primary);">${apt.date}</div>
+                        <div class="med-detail">${apt.time}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMedications();
+            renderPatientInfo();
+            renderAllergies();
+            renderAppointments();
+        });
+    </script>
+</body>
+</html>
