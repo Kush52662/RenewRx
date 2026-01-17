@@ -6,12 +6,12 @@
   framework = "#static"
   publish = "public"
 
+# Proxy /api to functions
 [[redirects]]
-  from = "/*"
-  to = "/mock_sites/portal.html"
+  from = "/api/renewrx"
+  to = "/.netlify/functions/renewrx"
   status = 200
 
-# Proxy rule to allow CORS-free API calls if we add backend functions later
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

@@ -13,52 +13,37 @@
     "execution_mode": "immediate",
     "api_schema": {
         "request_headers": {},
-        "url": "https://renewrx-mocks-demo-2026.netlify.app/api/place-order",
+        "url": "https://renewrx-mocks-demo-2026.netlify.app/.netlify/functions/yutori-order",
         "method": "POST",
         "path_params_schema": {},
         "request_body_schema": {
             "type": "object",
             "required": [
-                "medication_name",
-                "patient_name",
+                "medicationName",
+                "patientName",
                 "quantity"
             ],
-            "description": "",
+            "description": "Pharmacy order request",
             "properties": {
-                "medication_name": {
+                "medicationName": {
                     "type": "string",
-                    "description": "The name of the medication to order (e.g., 'Latanoprost', 'Timolol')",
-                    "is_system_provided": false,
-                    "dynamic_variable": "",
-                    "constant_value": ""
+                    "description": "The name of the medication to order (e.g., 'Latanoprost', 'Timolol')"
                 },
-                "patient_name": {
+                "patientName": {
                     "type": "string",
-                    "description": "Full name of the patient for shipping",
-                    "is_system_provided": false,
-                    "dynamic_variable": "",
-                    "constant_value": ""
+                    "description": "Full name of the patient for shipping"
                 },
                 "dosage": {
                     "type": "string",
-                    "description": "Dosage information (e.g., '0.005%', '10mg')",
-                    "is_system_provided": false,
-                    "dynamic_variable": "",
-                    "constant_value": ""
+                    "description": "Dosage information (e.g., '0.005%', '10mg')"
                 },
                 "quantity": {
                     "type": "number",
-                    "description": "Number of units to order",
-                    "is_system_provided": false,
-                    "dynamic_variable": "",
-                    "constant_value": ""
+                    "description": "Number of units to order"
                 },
-                "shipping_address": {
+                "shippingAddress": {
                     "type": "string",
-                    "description": "Full shipping address as a single string",
-                    "is_system_provided": false,
-                    "dynamic_variable": "",
-                    "constant_value": ""
+                    "description": "Full shipping address as a single string"
                 }
             }
         },
