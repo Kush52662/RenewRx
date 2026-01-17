@@ -269,7 +269,7 @@
                     <div style="font-size: 0.75rem; color: var(--text-secondary);">ID: PT-883920</div>
                 </div>
                 <div class="avatar">EV</div>
-                <a href="../portal.html" class="logout-btn">Sign Out</a>
+                <a href="#" class="logout-btn">Sign Out</a>
             </div>
         </div>
     </header>
@@ -409,7 +409,6 @@
                             ${med.status}
                         </span>
                         <div class="med-detail" style="margin-top: 0.5rem;">Refills: ${med.refills_remaining}</div>
-                        ${med.status === 'Refill Needed' ? `<button class="btn-refill">Request Refill</button>` : ''}
                     </div>
                 </div>
             `).join('');

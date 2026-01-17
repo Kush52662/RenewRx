@@ -38,7 +38,7 @@
                     "description": "",
                     "is_system_provided": false,
                     "dynamic_variable": "",
-                    "constant_value": "No login required. On the page, find \"Latanoprost\" and return its \"last_filled\" date. Also list all \"allergies\". Return as JSON."
+                    "constant_value": "The page at this URL is the dashboard (no login required). Locate the 'Current Medications' section. Find 'Latanoprost' and return its 'last_filled' date. Also locate the 'Allergies & Alerts' section and list all allergies found (e.g. Penicillin, Sulfa Drugs). Return the result as a clean JSON object."
                 }
             }
         },
