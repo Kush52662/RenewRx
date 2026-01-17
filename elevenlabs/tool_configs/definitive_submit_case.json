@@ -1,7 +1,7 @@
 {
     "type": "webhook",
     "name": "definitive_submit_case",
-    "description": "Submits the gathered information, including transcript, history, and risk score, to the clinician dashboard via Retool webhook.",
+    "description": "Submits patient name, requested medication, conversation transcript, and risk score to the clinician dashboard for doctor approval.",
     "response_timeout_secs": 20,
     "disable_interruptions": false,
     "force_pre_tool_speech": false,
@@ -13,13 +13,14 @@
     "execution_mode": "immediate",
     "api_schema": {
         "request_headers": {},
-        "url": "https://renewrx-mocks-demo-2026.netlify.app/api/submit-case",
+        "url": "https://renewrx-mocks-demo-2026.netlify.app/.netlify/functions/renewrx",
         "method": "POST",
         "path_params_schema": {},
         "request_body_schema": {
             "type": "object",
             "required": [
                 "patientName",
+                "requestedMedication",
                 "transcript",
                 "riskScore"
             ],
@@ -29,13 +30,17 @@
                     "type": "string",
                     "description": "The full name of the patient."
                 },
+                "requestedMedication": {
+                    "type": "string",
+                    "description": "The medication name and dosage the patient is requesting (e.g., 'Latanoprost 0.005%')."
+                },
                 "transcript": {
                     "type": "string",
                     "description": "The full conversation transcript."
                 },
                 "riskScore": {
                     "type": "number",
-                    "description": "The calculated risk score from Modulate."
+                    "description": "The calculated risk score."
                 }
             }
         },
