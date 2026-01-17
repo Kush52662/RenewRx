@@ -1,7 +1,7 @@
 {
     "type": "webhook",
     "name": "fetch_medical_history",
-    "description": "Scrapes patient medication history from the RenewRx portal using TinyFish Mino.",
+    "description": "Scrapes patient medication history from the RenewRx portal using TinyFish Mino. Bypasses login for zero-latency retrieval.",
     "response_timeout_secs": 60,
     "disable_interruptions": false,
     "force_pre_tool_speech": false,
@@ -38,7 +38,7 @@
                     "description": "",
                     "is_system_provided": false,
                     "dynamic_variable": "",
-                    "constant_value": "Find \"Latanoprost\" and return its \"last_filled\" date. Also list all \"allergies\". Return as JSON."
+                    "constant_value": "No login required. On the page, find \"Latanoprost\" and return its \"last_filled\" date. Also list all \"allergies\". Return as JSON."
                 }
             }
         },

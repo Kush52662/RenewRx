@@ -13,7 +13,7 @@
     "execution_mode": "immediate",
     "api_schema": {
         "request_headers": {},
-        "url": "https://renewrx-mocks-demo-2026.netlify.app/.netlify/functions/yutori-order",
+        "url": "https://renewrx-mocks-demo-2026.netlify.app/.netlify/functions/place-order",
         "method": "POST",
         "path_params_schema": {},
         "request_body_schema": {
